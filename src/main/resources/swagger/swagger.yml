@@ -1,0 +1,177 @@
+swagger: "2.0"
+info:
+  description: "API de Consulta ao WebService SOAP Demo"
+  version: 4.0.0
+  title: "API de Consulta ao WebService SOAP Demo"
+host: "sboot-demo-api"
+basePath: "/v1"
+schemes:
+  - "https"
+
+paths:
+  /demo/persons/{id}:
+    get:
+      tags:
+        - "sboot-demo-api"
+      operationId: "findPerson"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "Id da Pessoa"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "Ok"
+          schema:
+            $ref: "#/definitions/Person"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/StandardError"
+        "401":
+          description: "Unauthorized"
+        "404":
+          description: "Not Found"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/StandardError"
+
+  /demo/persons/:
+    get:
+      tags:
+        - "sboot-demo-api"
+      operationId: "getListByName"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "query"
+          name: "name"
+          description: "Nome da Pessoa"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "Ok"
+          schema:
+            $ref: "#/definitions/ListPersonIdentifications"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/StandardError"
+        "401":
+          description: "Unauthorized"
+        "404":
+          description: "Not Found"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/StandardError"
+
+  /demo/lookup-city/{zipCode}:
+    get:
+      tags:
+        - "sboot-demo-api"
+      operationId: "lookupCity"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "zipCode"
+          description: "CEP"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "Ok"
+          schema:
+            $ref: "#/definitions/Address"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/StandardError"
+        "401":
+          description: "Unauthorized"
+        "404":
+          description: "Not Found"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/StandardError"
+
+definitions:
+
+  StandardError:
+    type: "object"
+    properties:
+      timestamp:
+        type: "integer"
+        format: "int64"
+      status:
+        type: "integer"
+      error:
+        type: "string"
+      message:
+        type: "string"
+
+  Person:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      ssn:
+        type: "string"
+      dob:
+        type: "string"
+      home:
+        $ref: "#/definitions/Address"
+      office:
+        $ref: "#/definitions/Address"
+      favoriteColors:
+        $ref: "#/definitions/ArrayOfFavoriteColorsItemString"
+      age:
+        type: "integer"
+        format: "int64"
+
+  PersonIdentification:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      ssn:
+        type: "string"
+      dob:
+        type: "string"
+
+  ListPersonIdentifications:
+    type: "object"
+    properties:
+      personIdentifications:
+        type: "array"
+        items:
+          $ref: "#/definitions/PersonIdentification"
+
+  Address:
+    type: "object"
+    properties:
+      street:
+        type: "string"
+      city:
+        type: "string"
+      state:
+        type: "string"
+      zip:
+        type: "string"
+
+  ArrayOfFavoriteColorsItemString:
+    type: "object"
+    properties:
+      favoriteColorsItems:
+        type: "array"
+        items:
+          type: "string"
