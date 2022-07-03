@@ -1,5 +1,6 @@
 package br.com.aws.soap.demo.controllers;
 
+import br.com.aws.soap.demo.provider.controller.StandardSuccessRepresentation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -22,6 +23,13 @@ public class BaseController {
 
     protected  <T> ResponseEntity<T> createResponse(T instance, HttpStatus status) {
         return new ResponseEntity<>(instance, status);
+    }
+
+    protected ResponseEntity<StandardSuccessRepresentation> createResponseSuccess(HttpStatus status, String message) {
+        StandardSuccessRepresentation success = new StandardSuccessRepresentation();
+        success.status(status.value());
+        success.message(message);
+        return createResponse(success, status);
     }
 
 }

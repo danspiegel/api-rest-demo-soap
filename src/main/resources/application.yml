@@ -1,7 +1,7 @@
 spring:
   application:
-    name: sboot-consulta-cep
-    description: Serviço de Consultar CEP
+    name: sboot-aws-soap-demo
+    description: API Rest de consulta ao SOAP Demo
   main:
     banner-mode: "off"
     allow-bean-definition-overriding: true
@@ -44,26 +44,4 @@ demo:
   ws:
     serviceUrl: https://www.crcind.com:443/csp/samples/SOAP.Demo.cls
 
-
-
----
-
-# configurações para ambientes e testes integrados
-spring:
-  profiles: des,qa,uat,prd
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-
-demo:
-  ws:
-    serviceAddInteger: http://tempuri.org/SOAP.Demo.AddInteger
-    serviceDivideInteger: http://tempuri.org/SOAP.Demo.DivideInteger
-    serviceFindPerson: http://tempuri.org/SOAP.Demo.FindPerson
-    serviceGetByName: http://tempuri.org/SOAP.Demo.GetByName
-    serviceGetDataSetByName: http://tempuri.org/SOAP.Demo.GetDataSetByName
-    serviceGetListByName: http://tempuri.org/SOAP.Demo.GetListByName
-    serviceLookupCity: http://tempuri.org/SOAP.Demo.LookupCity
-    serviceMission: http://tempuri.org/SOAP.Demo.Mission
-    serviceQueryByName: http://tempuri.org/SOAP.Demo.QueryByName
 

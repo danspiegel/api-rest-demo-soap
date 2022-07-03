@@ -39,4 +39,12 @@ public class DemoService {
         }
     }
 
+    public Long addInteger(Long primeiroValor, Long segundoValor) {
+        if (Objects.nonNull(primeiroValor) && Objects.nonNull(segundoValor)) {
+            return wsDemoSoap.addInteger(primeiroValor, segundoValor);
+        } else {
+            throw new DemoException("Favor informar os dois valores para a operação.");
+        }
+    }
+
 }

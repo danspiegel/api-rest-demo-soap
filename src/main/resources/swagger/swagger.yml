@@ -102,6 +102,38 @@ paths:
           schema:
             $ref: "#/definitions/StandardError"
 
+  /demo/add-integer:
+    post:
+      tags:
+        - "sboot-demo-api"
+      operationId: "addInteger"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Valores da Operação"
+          required: true
+          schema:
+            $ref: "#/definitions/AddInteger"
+      responses:
+        "200":
+          description: "Ok"
+          schema:
+            $ref: "#/definitions/StandardSuccess"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/StandardError"
+        "401":
+          description: "Unauthorized"
+        "404":
+          description: "Not Found"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/StandardError"
+
 definitions:
 
   StandardError:
@@ -114,6 +146,14 @@ definitions:
         type: "integer"
       error:
         type: "string"
+      message:
+        type: "string"
+
+  StandardSuccess:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
       message:
         type: "string"
 
@@ -175,3 +215,13 @@ definitions:
         type: "array"
         items:
           type: "string"
+
+  AddInteger:
+    type: "object"
+    properties:
+      primeiroValor:
+        type: "integer"
+        format: "int64"
+      segundoValor:
+        type: "integer"
+        format: "int64"

@@ -2,11 +2,10 @@ package br.com.aws.soap.demo.controllers;
 
 import br.com.aws.soap.demo.mapper.DemoMapper;
 import br.com.aws.soap.demo.provider.api.DemoApi;
-import br.com.aws.soap.demo.provider.controller.AddressRepresentation;
-import br.com.aws.soap.demo.provider.controller.ListPersonIdentificationsRepresentation;
-import br.com.aws.soap.demo.provider.controller.PersonRepresentation;
+import br.com.aws.soap.demo.provider.controller.*;
 import br.com.aws.soap.demo.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +44,12 @@ public class DemoController extends BaseController implements DemoApi {
     public ResponseEntity<AddressRepresentation> lookupCity(String zipCode) {
         Address address = demoService.lookupCity(zipCode);
         return createResponse(demoMapper.toAddressRepresentation(address));
+    }
+
+    @Override
+    public ResponseEntity<StandardSuccessRepresentation> addInteger(AddIntegerRepresentation request) {
+        Long resultado = demoService.addInteger(request.getPrimeiroValor(), request.getSegundoValor());
+        return createResponseSuccess(HttpStatus.CREATED, "A soma foi realizada e o resultado é " + resultado + ".");
     }
 
 }
